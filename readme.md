@@ -10,7 +10,7 @@ Add the following to your polybar config:
 ```
 [module/mlb]
 type = custom/script
-exec = <path-to-mlb-dir>/venv/bin/python <path-to-mlb-dir>/mlb-test.py
+exec = <path-to-mlb-dir>/venv/bin/python <path-to-mlb-dir>/mlb_next_game_status.py
 interval = 120
 ```
 
