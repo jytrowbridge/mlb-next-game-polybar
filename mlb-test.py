@@ -6,6 +6,7 @@ from dateutil import parser
 TEAM_NAME = 'nym'
 TZ = timezone('US/Eastern')
 OUT_DATE_FORMAT = '%m-%d %I:%m'
+OUT_TIME_FORMAT = '%I:%m'
 
 # game_id
 # game_datetime
@@ -96,19 +97,25 @@ def get_day(date):
     # return date.day
 
 
-def get_gametime_str(game):
+def get_game_time_str(game):
+    return UTC.localize(
+            datetime.strptime(game['game_datetime'], 
+            API_DATE_FORMAT)
+        ).astimezone(TZ).strftime(OUT_TIME_FORMAT)
+
+
+def get_game_datetime_str(game):
     return UTC.localize(
             datetime.strptime(game['game_datetime'], 
             API_DATE_FORMAT)
         ).astimezone(TZ).strftime(OUT_DATE_FORMAT)
 
-
 prefix_str = ""
 
 if is_today(next_game_date):
-    prefix_str = "Today " + get_gametime_str(next_game)
+    prefix_str = "Today " + get_game_time_str(next_game)
 elif is_tonight(next_game_date):
-    prefix_str = "Tonight " + get_gametime_str(next_game)
+    prefix_str = "Tonight " + get_game_time_str(next_game)
 elif in_progress:
     prefix_str = (
         str(next_game['inning_state']) + 
@@ -119,6 +126,8 @@ elif in_progress:
         "-" + 
         str(next_game['home_score'])
     )
+else:
+    prefix_str = get_game_datetime_str(next_game)
 
 
 def get_team_name(id):
