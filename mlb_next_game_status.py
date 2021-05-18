@@ -85,11 +85,11 @@ else:
 
 
 def is_tonight(date):
-    return get_day(date) == NOW.day and date.time.hour >= 18
+    return date.day == NOW.day and date.hour >= 18
 
 
 def is_today(date):
-    return get_day(date) == NOW.day and date.time.hour < 18
+    return date.day == NOW.day and date.hour < 18
 
 
 def get_day(date):
@@ -112,9 +112,10 @@ def get_game_datetime_str(game):
 
 prefix_str = ""
 
-if is_today(next_game_date):
+next_game_date_datetime = parser.parse(next_game_date)
+if is_today(next_game_date_datetime):
     prefix_str = "Today " + get_game_time_str(next_game)
-elif is_tonight(next_game_date):
+elif is_tonight(next_game_date_datetime):
     prefix_str = "Tonight " + get_game_time_str(next_game)
 elif in_progress:
     prefix_str = (
