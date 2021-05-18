@@ -106,9 +106,9 @@ def get_gametime_str(game):
 prefix_str = ""
 
 if is_today(next_game_date):
-    prefix_str = "Today" + get_gametime_str(next_game)
+    prefix_str = "Today " + get_gametime_str(next_game)
 elif is_tonight(next_game_date):
-    prefix_str = "Tonight" + get_gametime_str(next_game)
+    prefix_str = "Tonight " + get_gametime_str(next_game)
 elif in_progress:
     prefix_str = (
         str(next_game['inning_state']) + 
